@@ -19,6 +19,8 @@ LOGIN_REDIRECT_URL = "account:home"
 LOGIN_URL = "account:login"
 LOGOUT_REDIRECT_URL = "account:login"
 
+DB_ENGINE = os.getenv('DB_ENGINE', 'sqlite3')
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -26,10 +28,9 @@ LOGOUT_REDIRECT_URL = "account:login"
 SECRET_KEY = '35km$(6l%1m8+dpc3x4m2q_mb8t*3id!h++*ncprqb6ep*yk(7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', True)
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -81,12 +82,19 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if DB_ENGINE == 'sqlite3':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+        }
+    }
 
 
 # Password validation
