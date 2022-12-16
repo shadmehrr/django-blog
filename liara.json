@@ -1,0 +1,11 @@
+{
+    "platform": "django",
+    "app": "shadmehr",
+
+    "disks": [
+        {
+            "name": "media",
+            "mountTo": "media"
+        }
+    ]
+}
